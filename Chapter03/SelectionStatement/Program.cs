@@ -1,4 +1,5 @@
-﻿// inclusive lower bound but exlusive upper bound
+﻿
+// inclusive lower bound but exlusive upper bound
 using SelectionStatement;
 
 int number = Random.Shared.Next(minValue: 1, maxValue: 7);
@@ -59,5 +60,29 @@ foreach (Animal? animal in animals)
             break;
     }
     WriteLine($"switch statement: {message}");
+}
+#endregion
+
+#region Switch pattern expression
+foreach (Animal? animal in animals)
+{
+    string message;
+    message = animal switch
+    {
+        Cat fourLeggedCat when fourLeggedCat.Legs == 4
+            => $"The cat named {fourLeggedCat.Name} has four legs",
+        Cat wildCat when wildCat.IsDomestic == false
+            => $"The non-domestic cat is named {wildCat.Name}.",
+        Cat cat
+            => $"The cat is named {cat.Name}.",
+        Spider spider when spider.IsVenomous
+            => $"The {spider.Name} spider os venomous. Run!",
+        null
+            => "The animal is null.",
+        _
+            => $"{animal.Name} is a {animal.GetType().Name}."
+
+    };
+    WriteLine($"switch expression: {message}");
 }
 #endregion
